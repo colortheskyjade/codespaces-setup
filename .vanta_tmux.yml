@@ -1,0 +1,12 @@
+name: vanta
+windows:
+  - services:
+      layout: even-vertical
+      panes:
+        - start:
+            - make dev-start <%= @args.drop(1).join(" ") %>
+        - shell:
+  - lazydocker:
+      panes:
+        - lazydocker:
+            - cd ~ && lazydocker
