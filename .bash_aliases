@@ -7,3 +7,4 @@ fi
 alias start="tmuxinator start vanta -p ~/.vanta_tmux.yml"
 alias startweb="tmuxinator start vanta -p ~/.vanta_tmux.yml web web-client"
 
+alias stop="tmux kill-session -t vanta"
