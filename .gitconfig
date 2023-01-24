@@ -1,0 +1,8 @@
+[color]
+	ui = auto
+	diff = auto
+	status = auto
+[push]
+    autoSetupRemote = true
+[rebase]
+	autosquash = true
