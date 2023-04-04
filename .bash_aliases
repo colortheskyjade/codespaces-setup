@@ -9,8 +9,9 @@ export LS_COLORS+=':ow=01;33'
 
 alias start="tmuxinator start vanta -p ~/.vanta_tmux.yml"
 alias startweb="tmuxinator start vanta -p ~/.vanta_tmux.yml web web-client"
-
 alias stop="tmux kill-session -t vanta"
 
-alias storybook="make dev-storybook"
-alias fixall="make linter-autofix"
+alias makefix="make linter-autofix"
+alias makestory="make dev-storybook"
+alias maketypes="make generate-types"
+alias makeweb="make dev-start web web-client"
