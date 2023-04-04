@@ -4,6 +4,9 @@ else
     echo "Error loading git completions"
 fi
 
+# No more green backgrounds for writeable folders.
+export LS_COLORS+=':ow=01;33'
+
 alias start="tmuxinator start vanta -p ~/.vanta_tmux.yml"
 alias startweb="tmuxinator start vanta -p ~/.vanta_tmux.yml web web-client"
 
