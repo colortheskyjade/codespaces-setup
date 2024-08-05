@@ -7,4 +7,4 @@ fi
 # No more green backgrounds for writeable folders.
 export LS_COLORS+=':ow=01;33'
 
-alias rrr = "make yarn && make generate-types && make dev-replace web web-client"
+alias rrr="make yarn && make generate-types && make dev-replace web web-client"
