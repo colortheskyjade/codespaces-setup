@@ -7,6 +7,5 @@ fi
 # No more green backgrounds for writeable folders.
 export LS_COLORS+=':ow=01;33'
 
-alias rrr="yarn post-pull && make dev-replace web web-client"
-alias ypp="yarn post-pull"
-alias mmm="make generate-types && make dev-start web web-client"
+alias jpp="just post-pull"
+alias ypp="just post-pull"
