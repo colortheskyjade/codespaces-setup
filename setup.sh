@@ -9,6 +9,7 @@ cp .gitconfig .tmux.conf .bash_aliases ~/
 mkdir -p ~/.claude
 cp .claude_settings.json ~/.claude/settings.json
 cp CLAUDE.md ~/.claude/
+cp -r claude/* ~/.claude/
 
 # Install mise
 curl https://mise.run | sh
