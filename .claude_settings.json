@@ -1,27 +1,22 @@
 {
-  "tools": {
-    "bash": {
-      "enabled": true,
-      "allowed_commands": ["turbo:*", "npm:*"]
-    },
-    "edit": {
-      "enabled": true
-    },
-    "read": {
-      "enabled": true
-    },
-    "write": {
-      "enabled": true
-    },
-    "grep": {
-      "enabled": true
-    },
-    "glob": {
-      "enabled": true
-    }
+  "permissions": {
+    "allow": [
+      "Bash(git checkout:*)",
+      "Bash(rm:*)",
+      "Bash(just unit-test:*)",
+      "Bash(turbo typecheck:*)"
+    ]
   },
-  "hooks": {},
-  "memory": {
-    "enabled": true
-  }
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "ESLint",
+    "guru",
+    "context7",
+    "datetime",
+    "mongodb",
+    "jira",
+    "datadog",
+    "datadog_logs",
+    "slack"
+  ]
 }
