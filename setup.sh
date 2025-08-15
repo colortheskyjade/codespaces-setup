@@ -21,3 +21,9 @@ mise use --global delta@0.18.2 \
   fzf@0.65.0 \
   bat@0.25.0 \
   jujutsu@0.31.0
+
+docker run -d \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -p 12345:8080 \
+  --name dozzle \
+  amir20/dozzle:latest
