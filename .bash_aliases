@@ -6,6 +6,7 @@ fi
 
 # No more green backgrounds for writeable folders.
 export LS_COLORS+=':ow=01;33'
+export DOZZLE_ENABLE_ACTIONS=true
 
 alias jpp="just post-pull"
 alias ypp="just post-pull"
