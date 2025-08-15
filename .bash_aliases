@@ -9,3 +9,19 @@ export LS_COLORS+=':ow=01;33'
 
 alias jpp="just post-pull"
 alias ypp="just post-pull"
+
+# Docker compose logs alias
+logs() {
+    if [ $# -eq 0 ]; then
+        echo "Usage: logs [service-name] [-t] [-n]"
+        return 1
+    fi
+    
+    local service="$1"
+    shift
+    
+    docker-compose logs "$@" "$service"
+}
+
+# Dozzle docker logs viewer
+alias dozzle="docker run -d -v /var/run/docker.sock:/var/run/docker.sock -p 12345:8080 --name dozzle amir20/dozzle:latest"
