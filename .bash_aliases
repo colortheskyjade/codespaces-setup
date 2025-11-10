@@ -26,3 +26,6 @@ logs() {
 
 # Dozzle docker logs viewer
 alias dozzle="docker run -d -v /var/run/docker.sock:/var/run/docker.sock -p 12345:8080 --name dozzle amir20/dozzle:latest"
+
+# List most recent local branches
+alias ghlocal="git for-each-ref --sort=-committerdate refs/heads/ --format='%(committerdate:relative) %(align:width=15)%(refname:short)%(end)'"
