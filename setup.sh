@@ -4,6 +4,7 @@ set -Eeuo pipefail
 
 # copy dotfiles
 cp .gitconfig .tmux.conf .bash_aliases ~/
+git config --global user.email "colortheskyjade@users.noreply.github.com"
 
 # copy claude files
 mkdir -p ~/.claude
