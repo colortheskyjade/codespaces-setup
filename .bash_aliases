@@ -30,6 +30,12 @@ alias dozzle="docker run -d -v /var/run/docker.sock:/var/run/docker.sock -p 1234
 # List most recent local branches
 alias ghlocal="git for-each-ref --sort=-committerdate refs/heads/ --format='%(committerdate:relative) %(align:width=15)%(refname:short)%(end)'"
 
+if command -v cursor >/dev/null 2>&1; then
+    export GIT_EDITOR="cursor --wait"
+elif command -v code >/dev/null 2>&1; then
+    export GIT_EDITOR="code --wait"
+fi
+
 # New random branch
 newbranch() {
   # Generate a 8-digit hex code (4 bytes)
