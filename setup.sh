@@ -28,3 +28,5 @@ docker run -d \
   -p 12345:8080 \
   --name dozzle \
   amir20/dozzle:latest
+
+sudo git config --system --unset include.path
