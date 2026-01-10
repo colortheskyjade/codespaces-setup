@@ -4,7 +4,7 @@ set -Eeuo pipefail
 
 # copy dotfiles
 cp .gitconfig .tmux.conf .bash_aliases ~/
-git config --global user.email "colortheskyjade@users.noreply.github.com"
+sudo git config --global user.email "colortheskyjade@users.noreply.github.com"
 
 # copy claude files
 mkdir -p ~/.claude
@@ -29,4 +29,3 @@ docker run -d \
   --name dozzle \
   amir20/dozzle:latest
 
-sudo git config --system --unset include.path
