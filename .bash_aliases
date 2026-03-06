@@ -10,6 +10,7 @@ export DOZZLE_ENABLE_ACTIONS=true
 
 alias jpp="just post-pull"
 alias ypp="just post-pull"
+alias zj="zellij"
 
 # Docker compose logs alias
 logs() {

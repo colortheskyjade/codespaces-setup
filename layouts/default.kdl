@@ -1,0 +1,8 @@
+layout {
+    tab name="Agent" focus=true {
+        pane command="agent"
+    }
+    tab name="Bash" {
+        pane
+    }
+}

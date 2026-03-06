@@ -1,0 +1,36 @@
+// Zellij configuration
+// Adapted from .tmux.conf
+
+// Use Ctrl-t as prefix (tmux mode), matching tmux prefix C-t
+keybinds {
+    tmux clear-defaults=true {
+        bind "Ctrl t" { SwitchToMode "Normal"; }
+        // j/k for next/previous tab (window)
+        bind "j" { GoToNextTab; SwitchToMode "Normal"; }
+        bind "k" { GoToPreviousTab; SwitchToMode "Normal"; }
+        bind "Enter" { NextSwapLayout; SwitchToMode "Normal"; }
+        // n/c for new tab (window)
+        bind "n" { NewTab; SwitchToMode "Normal"; }
+        bind "c" { NewTab; SwitchToMode "Normal"; }
+        // w to close tab (window)
+        bind "w" { CloseTab; SwitchToMode "Normal"; }
+        // v for vertical split, h for horizontal split (preserves cwd)
+        bind "v" { NewPane "Right"; SwitchToMode "Normal"; }
+        bind "h" { NewPane "Down"; SwitchToMode "Normal"; }
+        // Arrow keys to move between panes
+        bind "Left" { MoveFocus "Left"; SwitchToMode "Normal"; }
+        bind "Right" { MoveFocus "Right"; SwitchToMode "Normal"; }
+        bind "Up" { MoveFocus "Up"; SwitchToMode "Normal"; }
+        bind "Down" { MoveFocus "Down"; SwitchToMode "Normal"; }
+    }
+    shared_except "tmux" "locked" {
+        bind "Ctrl t" { SwitchToMode "Tmux"; }
+    }
+}
+
+mouse_mode true
+copy_on_select true
+scroll_buffer_size 50000
+session_serialization true
+simplified_ui true
+theme "catppuccin-frappe"
