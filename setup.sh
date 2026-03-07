@@ -27,8 +27,10 @@ mise use --global delta@0.18.2 \
   fd@10.2.0 \
   fzf@0.65.0 \
   bat@0.25.0 \
-  jujutsu@0.31.0 \
-  zellij@latest
+  jujutsu@0.31.0
+
+curl -fsSL https://github.com/zellij-org/zellij/releases/latest/download/zellij-x86_64-unknown-linux-musl.tar.gz \
+  | sudo tar xz -C /usr/local/bin
 
 docker run -d \
   -v /var/run/docker.sock:/var/run/docker.sock \
