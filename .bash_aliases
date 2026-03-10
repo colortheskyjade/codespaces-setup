@@ -26,6 +26,8 @@ logs() {
     docker-compose logs "$@" "$service"
 }
 
+alias zja='zellij attach "$(zellij list-sessions --short | tail -n 1)"'
+
 # Dozzle docker logs viewer
 alias dozzle="docker run -d -v /var/run/docker.sock:/var/run/docker.sock -p 12345:8080 --name dozzle amir20/dozzle:latest"
 
