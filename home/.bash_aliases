@@ -28,6 +28,12 @@ logs() {
 
 alias zja='zellij attach "$(zellij list-sessions --short | tail -n 1)"'
 
+DOTFILES_DIR="$HOME/dotfiles"
+
+update-dotfiles() {
+    cd "$DOTFILES_DIR" && git pull && bash setup.sh
+}
+
 # Dozzle docker logs viewer
 alias dozzle="docker run -d -v /var/run/docker.sock:/var/run/docker.sock -p 12345:8080 --name dozzle amir20/dozzle:latest"
 
@@ -58,8 +64,3 @@ newbranch() {
     return 1
   fi
 }
-
-# Stale PR approval checker aliases
-alias stale-approvals='/workspaces/obsidian/scripts/check-stale-approvals.sh'
-alias setup-stale-approvals-cron='(crontab -l 2>/dev/null; echo "*/5 * * * * /workspaces/obsidian/scripts/check-stale-approvals.sh >> ~/.stale-approvals.log 2>&1") | crontab -'
-alias remove-stale-approvals-cron='crontab -l | grep -v "check-stale-approvals" | crontab -'
