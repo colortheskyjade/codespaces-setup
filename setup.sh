@@ -2,7 +2,11 @@
 
 set -Eeuo pipefail
 
-sudo apt-get install -y stow
+sudo apt-get update
+sudo apt-get install -y software-properties-common stow
+sudo add-apt-repository ppa:neovim-ppa/stable -y
+sudo apt-get update
+sudo apt-get install -y make gcc ripgrep fd-find tree-sitter-cli unzip git xclip neovim
 stow -t ~ home
 
 echo "session_name \"$(gitpod env get -f Name)\"" >> ~/.config/zellij/config.kdl
