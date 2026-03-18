@@ -8,6 +8,25 @@ stow -t ~ home
 echo "session_name \"$(gitpod env get -f Name)\"" >> ~/.config/zellij/config.kdl
 sudo git config --global user.email "colortheskyjade@users.noreply.github.com"
 
+# Install Homebrew for Linux and make it available in future shells.
+BREW_BIN="/home/linuxbrew/.linuxbrew/bin/brew"
+BREW_SHELLENV='eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
+
+if ! command -v brew >/dev/null 2>&1 && [[ ! -x "$BREW_BIN" ]]; then
+  NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+if [[ -x "$BREW_BIN" ]]; then
+  eval "$("$BREW_BIN" shellenv)"
+
+  for shell_rc in ~/.bashrc ~/.profile; do
+    touch "$shell_rc"
+    if ! grep -Fqx "$BREW_SHELLENV" "$shell_rc"; then
+      printf '\n%s\n' "$BREW_SHELLENV" >> "$shell_rc"
+    fi
+  done
+fi
+
 # Install mise
 curl https://mise.run | sh
 
