@@ -1,0 +1,18 @@
+layout {
+    default_tab_template {
+        pane size=1 borderless=true {
+            plugin location="compact-bar"
+        }
+        children
+        pane size=1 borderless=true {
+            plugin location="status-bar"
+        }
+    }
+    // Layout `nv`: left agent, right nvim (horizontal = side-by-side)
+    tab name="Agent + nvim" focus=true {
+        pane split_direction="horizontal" {
+            pane command="agent"
+            pane command="nvim" focus=true
+        }
+    }
+}
