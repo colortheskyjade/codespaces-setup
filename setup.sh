@@ -3,10 +3,22 @@
 set -Eeuo pipefail
 
 sudo apt-get update
-sudo apt-get install -y software-properties-common stow
-sudo add-apt-repository ppa:neovim-ppa/stable -y
-sudo apt-get update
-sudo apt-get install -y make gcc ripgrep fd-find tree-sitter-cli unzip git xclip neovim
+sudo apt-get install -y stow make gcc ripgrep fd-find tree-sitter-cli unzip git xclip curl
+
+# Neovim nightly from GitHub (prerelease), not the stable PPA build
+nvim_arch="$(uname -m)"
+case "$nvim_arch" in
+  x86_64) nvim_tar="nvim-linux-x86_64.tar.gz" ;;
+  aarch64) nvim_tar="nvim-linux-arm64.tar.gz" ;;
+  *)
+    echo "setup.sh: Neovim nightly: unsupported uname -m: ${nvim_arch}" >&2
+    exit 1
+    ;;
+esac
+nvim_root="/usr/local/${nvim_tar%.tar.gz}"
+sudo rm -rf "$nvim_root"
+curl -fsSL "https://github.com/neovim/neovim/releases/download/nightly/${nvim_tar}" | sudo tar xz -C /usr/local
+sudo ln -sfn "${nvim_root}/bin/nvim" /usr/local/bin/nvim
 mkdir -p ~/.config
 stow --restow -t ~ home
 
@@ -41,7 +53,12 @@ mise use --global delta@0.18.2 \
   fd@10.2.0 \
   fzf@0.65.0 \
   bat@0.25.0 \
-  jujutsu@0.31.0
+  jujutsu@0.31.0 \
+  node@lts
+
+export PATH="${HOME}/.local/bin:${PATH}"
+# tsgo LSP binary (Neovim LazyVim tsgo extra); see lazyvim.plugins.extras.lang.typescript
+mise x -- npm install -g @typescript/native-preview
 
 curl -fsSL https://github.com/zellij-org/zellij/releases/latest/download/zellij-x86_64-unknown-linux-musl.tar.gz \
   | sudo tar xz -C /usr/local/bin
