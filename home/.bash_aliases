@@ -34,6 +34,21 @@ update-dotfiles() {
     cd "$DOTFILES_DIR" && git pull && bash setup.sh
 }
 
+# Gitpod: pull the workspace dotfiles repo and re-run setup.sh (stow, mise, nvim nightly, etc.)
+gitpod-sync-dotfiles() {
+    if [ -z "${GITPOD_REPO_ROOT:-}" ]; then
+        echo "gitpod-sync-dotfiles: not on Gitpod (GITPOD_REPO_ROOT is unset)" >&2
+        return 1
+    fi
+    if [ ! -d "$GITPOD_REPO_ROOT/.git" ]; then
+        echo "gitpod-sync-dotfiles: not a git repo: $GITPOD_REPO_ROOT" >&2
+        return 1
+    fi
+    (cd "$GITPOD_REPO_ROOT" && git pull && bash setup.sh)
+}
+
+alias gpd='gitpod-sync-dotfiles'
+
 # Dozzle docker logs viewer
 alias dozzle="docker run -d -v /var/run/docker.sock:/var/run/docker.sock -p 12345:8080 --name dozzle amir20/dozzle:latest"
 
