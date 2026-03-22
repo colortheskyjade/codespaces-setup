@@ -12,6 +12,7 @@ export BRANCH_PREFIX=ruyan
 alias jpp="just post-pull"
 alias ypp="just post-pull"
 alias zj="zellij"
+alias cld="claude --dangerously-skip-permissions"
 
 # Docker compose logs alias
 logs() {
