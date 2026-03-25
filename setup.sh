@@ -20,7 +20,7 @@ sudo rm -rf "$nvim_root"
 curl -fsSL "https://github.com/neovim/neovim/releases/download/nightly/${nvim_tar}" | sudo tar xz -C /usr/local
 sudo ln -sfn "${nvim_root}/bin/nvim" /usr/local/bin/nvim
 mkdir -p ~/.config
-stow --restow -t ~ home
+stow --restow -t ~ home 2>/dev/null
 
 echo "session_name \"$(gitpod env get -f Name)\"" >> ~/.config/zellij/config.kdl
 sudo git config --global user.email "colortheskyjade@users.noreply.github.com"
@@ -63,9 +63,4 @@ mise x -- npm install -g @typescript/native-preview
 curl -fsSL https://github.com/zellij-org/zellij/releases/latest/download/zellij-x86_64-unknown-linux-musl.tar.gz \
   | sudo tar xz -C /usr/local/bin
 
-docker run -d \
-  -v /var/run/docker.sock:/var/run/docker.sock \
-  -p 12345:8080 \
-  --name dozzle \
-  amir20/dozzle:latest
 
