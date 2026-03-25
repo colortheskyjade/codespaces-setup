@@ -12,10 +12,10 @@ Use exactly one of these labels:
 
 | Label | When to use |
 |---|---|
-| `security-risk-negligible` | UI tweaks, refactoring, docs, CI config, test-only changes |
-| `security-risk-low` | Internal logic, new dependencies, minor auth-adjacent code |
-| `security-risk-medium` | Auth, validation, external API integrations, data model changes |
-| `security-risk-high` | Core security, encryption, secrets handling, sensitive data flows |
+| `security-risk-negligible` | Trivial no-code changes, e.g. internal documentation or non-production, development-only CI workflows |
+| `security-risk-low` | Production code or config changes. Default starting point for most PRs, since it's extremely rare that a code change has literally no risk |
+| `security-risk-medium` | Feature-level code/config changes related to data access controls or user permissions |
+| `security-risk-high` | Feature-agnostic, platform-level code/config changes related to data access control, user permissions, or security features. Also for feature-specific changes that are particularly high-risk or high-exposure (e.g. used by the majority of Vanta users) |
 
 ### How to apply
 
