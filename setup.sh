@@ -21,6 +21,7 @@ curl -fsSL "https://github.com/neovim/neovim/releases/download/nightly/${nvim_ta
 sudo ln -sfn "${nvim_root}/bin/nvim" /usr/local/bin/nvim
 mkdir -p ~/.config
 stow --restow -t ~ home 2>/dev/null
+ln -sf ~/AGENTS.md ~/CLAUDE.md
 
 echo "session_name \"$(gitpod env get -f Name)\"" >> ~/.config/zellij/config.kdl
 sudo git config --global user.email "colortheskyjade@users.noreply.github.com"
