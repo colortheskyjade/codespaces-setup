@@ -25,6 +25,3 @@ After creating the PR, apply the label with:
 gh pr edit <number> --add-label "<label>"
 ```
 
-### When in doubt
-
-When impact is unclear, **prefer a more conservative (higher) risk** classification.
