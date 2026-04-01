@@ -20,8 +20,7 @@ sudo rm -rf "$nvim_root"
 curl -fsSL "https://github.com/neovim/neovim/releases/download/nightly/${nvim_tar}" | sudo tar xz -C /usr/local
 sudo ln -sfn "${nvim_root}/bin/nvim" /usr/local/bin/nvim
 mkdir -p ~/.config
-stow --restow -t ~ home 2>/dev/null
-mkdir -p ~/.claude
+stow --no-folding --restow -t ~ home 2>/dev/null
 ln -sf ~/AGENTS.md ~/.claude/CLAUDE.md
 
 echo "session_name \"$(gitpod env get -f Name)\"" >> ~/.config/zellij/config.kdl
