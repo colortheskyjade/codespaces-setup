@@ -3,7 +3,7 @@
 set -Eeuo pipefail
 
 sudo apt-get update
-sudo apt-get install -y stow make gcc ripgrep fd-find tree-sitter-cli unzip git xclip curl
+sudo apt-get install -y stow make gcc ripgrep fd-find tree-sitter-cli unzip git xclip curl mosh
 
 # Neovim nightly from GitHub (prerelease), not the stable PPA build
 nvim_arch="$(uname -m)"
