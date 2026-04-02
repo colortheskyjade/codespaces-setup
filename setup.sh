@@ -3,7 +3,7 @@
 set -Eeuo pipefail
 
 sudo apt-get update
-sudo apt-get install -y stow make gcc ripgrep fd-find tree-sitter-cli unzip git xclip curl mosh
+sudo apt-get install -y stow make gcc ripgrep fd-find unzip git xclip curl mosh
 
 # Neovim nightly from GitHub (prerelease), not the stable PPA build
 nvim_arch="$(uname -m)"
@@ -59,7 +59,7 @@ mise use --global delta@0.18.2 \
 
 export PATH="${HOME}/.local/bin:${PATH}"
 # tsgo LSP binary (Neovim LazyVim tsgo extra); see lazyvim.plugins.extras.lang.typescript
-mise x -- npm install -g @typescript/native-preview
+mise x -- npm install -g @typescript/native-preview tree-sitter-cli
 
 curl -fsSL https://github.com/zellij-org/zellij/releases/latest/download/zellij-x86_64-unknown-linux-musl.tar.gz \
   | sudo tar xz -C /usr/local/bin
