@@ -32,7 +32,9 @@ keybinds {
 
 mouse_mode true
 copy_on_select true
+copy_clipboard "system"
 scroll_buffer_size 50000
 session_serialization true
 simplified_ui true
 theme "catppuccin-mocha"
+session_name "apr1-3"
