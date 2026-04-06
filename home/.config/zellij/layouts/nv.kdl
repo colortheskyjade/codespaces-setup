@@ -8,10 +8,12 @@ layout {
             plugin location="status-bar"
         }
     }
-    // Layout `nv`: left agent, right nvim (horizontal = side-by-side)
-    tab name="Agent + nvim" focus=true {
+    // Layout `nv`: left claude, right nvim (horizontal = side-by-side)
+    tab name="Claude + nvim" focus=true {
         pane split_direction="horizontal" {
-            pane command="agent"
+            pane command="claude" {
+                args "--dangerously-skip-permissions"
+            }
             pane command="nvim" focus=true
         }
     }

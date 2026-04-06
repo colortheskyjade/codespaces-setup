@@ -8,8 +8,10 @@ layout {
             plugin location="status-bar"
         }
     }
-    tab name="Agent" focus=true {
-        pane command="agent"
+    tab name="Claude" focus=true {
+        pane command="claude" {
+            args "--dangerously-skip-permissions"
+        }
     }
     tab name="Bash" {
         pane
