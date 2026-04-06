@@ -61,7 +61,16 @@ export PATH="${HOME}/.local/bin:${PATH}"
 # tsgo LSP binary (Neovim LazyVim tsgo extra); see lazyvim.plugins.extras.lang.typescript
 mise x -- npm install -g @typescript/native-preview tree-sitter-cli
 
-curl -fsSL https://github.com/zellij-org/zellij/releases/latest/download/zellij-x86_64-unknown-linux-musl.tar.gz \
+zellij_arch="$(uname -m)"
+case "$zellij_arch" in
+  x86_64)  zellij_tar="zellij-x86_64-unknown-linux-musl.tar.gz" ;;
+  aarch64) zellij_tar="zellij-aarch64-unknown-linux-musl.tar.gz" ;;
+  *)
+    echo "setup.sh: Zellij: unsupported uname -m: ${zellij_arch}" >&2
+    exit 1
+    ;;
+esac
+curl -fsSL "https://github.com/zellij-org/zellij/releases/latest/download/${zellij_tar}" \
   | sudo tar xz -C /usr/local/bin
 
 
