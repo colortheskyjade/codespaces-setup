@@ -3,7 +3,7 @@
 set -Eeuo pipefail
 
 sudo apt-get update
-sudo apt-get install -y stow make gcc ripgrep fd-find unzip git xclip curl mosh
+sudo apt-get install -y stow make gcc ripgrep unzip git xclip curl mosh
 
 # Neovim nightly from GitHub (prerelease), not the stable PPA build
 nvim_arch="$(uname -m)"
@@ -48,17 +48,11 @@ fi
 # Install mise
 curl https://mise.run | sh
 
-# Tool installation
-mise use --global delta@0.18.2 \
-  'ubi:abhinav/git-spice[exe=gs]' \
-  fd@10.2.0 \
-  fzf@0.65.0 \
-  bat@0.25.0 \
-  jujutsu@0.31.0 \
-  node@lts
+brew install git-delta fd fzf bat jj abhinav/tap/git-spice
 
+# mise: node + npm-installed tools
+mise use --global node@lts
 export PATH="${HOME}/.local/bin:${PATH}"
-# tsgo LSP binary (Neovim LazyVim tsgo extra); see lazyvim.plugins.extras.lang.typescript
 mise x -- npm install -g @typescript/native-preview tree-sitter-cli
 
 zellij_arch="$(uname -m)"
