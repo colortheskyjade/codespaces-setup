@@ -23,7 +23,9 @@ mkdir -p ~/.config
 stow --no-folding --restow -t ~ home 2>/dev/null
 ln -sf ~/AGENTS.md ~/.claude/CLAUDE.md
 
-echo "session_name \"$(gitpod env get -f Name)\"" >> ~/.config/zellij/config.kdl
+if command -v gitpod >/dev/null 2>&1; then
+  echo "session_name \"$(gitpod env get -f Name)\"" >> ~/.config/zellij/config.kdl
+fi
 sudo git config --global user.email "colortheskyjade@users.noreply.github.com"
 
 # Install Homebrew for Linux and make it available in future shells.
