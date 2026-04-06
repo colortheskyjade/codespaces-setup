@@ -48,7 +48,10 @@ fi
 # Install mise
 curl https://mise.run | sh
 
-brew install git-delta fd fzf bat jj abhinav/tap/git-spice
+brew install git-delta fd fzf bat jj
+
+curl -fsSL "https://github.com/abhinav/git-spice/releases/latest/download/git-spice.Linux-$(uname -m).tar.gz" \
+  | sudo tar xz -C /usr/local/bin
 
 # mise: node + npm-installed tools
 mise use --global node@lts
