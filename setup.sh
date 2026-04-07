@@ -22,6 +22,7 @@ sudo ln -sfn "${nvim_root}/bin/nvim" /usr/local/bin/nvim
 mkdir -p ~/.config
 stow --no-folding --restow -t ~ home 2>/dev/null
 ln -sf ~/AGENTS.md ~/.claude/CLAUDE.md
+claude config set --global trustCurrentFolder true
 
 if command -v gitpod >/dev/null 2>&1; then
   ona_name="$(gitpod env get -f Name)"
