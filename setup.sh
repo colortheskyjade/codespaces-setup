@@ -26,6 +26,55 @@ ln -sf ~/AGENTS.md ~/.claude/CLAUDE.md
 if command -v gitpod >/dev/null 2>&1; then
   echo "session_name \"$(gitpod env get -f Name)\"" >> ~/.config/zellij/config.kdl
 fi
+
+# Seed Cursor CLI default model (Opus 4.6 1M)
+CURSOR_CLI_CONFIG="$HOME/.cursor/cli-config.json"
+mkdir -p "$(dirname "$CURSOR_CLI_CONFIG")"
+if [ ! -f "$CURSOR_CLI_CONFIG" ]; then
+  cat > "$CURSOR_CLI_CONFIG" <<'CURSOR_EOF'
+{
+  "version": 1,
+  "model": {
+    "modelId": "claude-4.6-opus-high",
+    "displayModelId": "claude-4.6-opus-high",
+    "displayName": "Opus 4.6 1M",
+    "displayNameShort": "Opus 4.6 1M",
+    "aliases": [],
+    "maxMode": true
+  },
+  "hasChangedDefaultModel": true,
+  "selectedModel": {
+    "modelId": "claude-4.6-opus-high",
+    "parameters": []
+  },
+  "modelParameters": {
+    "claude-4.6-opus-high": []
+  },
+  "approvalMode": "auto-approve"
+}
+CURSOR_EOF
+elif command -v jq >/dev/null 2>&1; then
+  tmp="$(mktemp)"
+  jq '
+    .model = {
+      "modelId": "claude-4.6-opus-high",
+      "displayModelId": "claude-4.6-opus-high",
+      "displayName": "Opus 4.6 1M",
+      "displayNameShort": "Opus 4.6 1M",
+      "aliases": [],
+      "maxMode": true
+    } |
+    .hasChangedDefaultModel = true |
+    .selectedModel = {
+      "modelId": "claude-4.6-opus-high",
+      "parameters": []
+    } |
+    .modelParameters = {
+      "claude-4.6-opus-high": []
+    } |
+    .approvalMode = "auto-approve"
+  ' "$CURSOR_CLI_CONFIG" > "$tmp" && mv "$tmp" "$CURSOR_CLI_CONFIG"
+fi
 sudo git config --global user.email "colortheskyjade@users.noreply.github.com"
 
 # Install Homebrew for Linux and make it available in future shells.
