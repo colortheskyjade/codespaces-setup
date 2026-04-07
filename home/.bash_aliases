@@ -8,6 +8,7 @@ fi
 export LS_COLORS+=':ow=01;33'
 export DOZZLE_ENABLE_ACTIONS=true
 export BRANCH_PREFIX=ruyan
+export CLAUDE_CODE_EFFORT_LEVEL=high
 
 alias jpp="just post-pull"
 alias ypp="just post-pull"

@@ -24,7 +24,9 @@ stow --no-folding --restow -t ~ home 2>/dev/null
 ln -sf ~/AGENTS.md ~/.claude/CLAUDE.md
 
 if command -v gitpod >/dev/null 2>&1; then
-  echo "session_name \"$(gitpod env get -f Name)\"" >> ~/.config/zellij/config.kdl
+  ona_name="$(gitpod env get -f Name)"
+  sed -i '/^session_name /d' ~/.config/zellij/config.kdl
+  echo "session_name \"${ona_name}\"" >> ~/.config/zellij/config.kdl
 fi
 
 # Seed Cursor CLI default model (Opus 4.6 1M)
