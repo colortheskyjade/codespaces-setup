@@ -46,8 +46,6 @@ fi
 mkdir -p ~/.config
 try "Stow dotfiles" stow --no-folding --restow -t ~ home
 ln -sf ~/AGENTS.md ~/.claude/CLAUDE.md 2>/dev/null || true
-try "Claude config" claude config set --global trustCurrentFolder true
-
 if command -v gitpod >/dev/null 2>&1; then
   ona_name="$(gitpod env get -f Name 2>/dev/null || true)"
   if [[ -n "$ona_name" ]]; then
