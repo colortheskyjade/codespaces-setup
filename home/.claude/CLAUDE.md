@@ -4,6 +4,10 @@
 
 Before editing files, committing, or performing any work, verify you are on the correct branch with `git branch --show-current`. If you were asked to work on a specific PR or branch and are not on it, switch first. Never accidentally edit or commit on `main` or a stale branch.
 
+## Branch naming
+
+Always prefix new branches with `$BRANCH_PREFIX/`, e.g. `$BRANCH_PREFIX/fix-login-bug`. If `$BRANCH_PREFIX` is unset, fall back to the GitHub username from `git config user.name` or `gh api user --jq .login`.
+
 ## Security risk labels
 
 **Every PR must have a security risk label.** When creating a PR or when asked to add a label, immediately run:
