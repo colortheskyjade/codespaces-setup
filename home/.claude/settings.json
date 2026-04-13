@@ -1,4 +1,7 @@
 {
+  "enabledPlugins": {
+    "superpowers@claude-plugins-official": true
+  },
   "model": "opus[1m]",
   "skipDangerousModePermissionPrompt": true,
   "effortLevel": "high"
