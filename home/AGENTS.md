@@ -1,5 +1,11 @@
 # Agent instructions
 
+## Git workflow
+
+- Always verify you are on the correct branch for the current work before making changes. If not, switch to or create the appropriate branch first.
+- Prefer to auto commit changes as you go rather than waiting for the user to ask.
+- Prefer to auto push commits to the remote rather than waiting for the user to ask.
+
 ## Security risk labels
 
 **Every PR must have a security risk label.** When creating a PR or when asked to add a label, immediately run:
