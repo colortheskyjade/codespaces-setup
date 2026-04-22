@@ -5,6 +5,7 @@
 - Always verify you are on the correct branch for the current work before making changes. If not, switch to or create the appropriate branch first.
 - Prefer to auto commit changes as you go rather than waiting for the user to ask.
 - Prefer to auto push commits to the remote rather than waiting for the user to ask.
+- When asked to create a PR, just create it — don't push back on whether the code belongs in the repo or whether it will be merged. A PR is not a merge; if it's unwanted, the user will close it.
 
 ## Security risk labels
 
