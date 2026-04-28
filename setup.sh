@@ -54,7 +54,7 @@ if command -v gitpod >/dev/null 2>&1; then
   fi
 fi
 
-# --- Seed Cursor CLI default model (Opus 4.6 1M) ---
+# --- Seed Cursor CLI default model (Opus 4.7 1M) ---
 CURSOR_CLI_CONFIG="$HOME/.cursor/cli-config.json"
 mkdir -p "$(dirname "$CURSOR_CLI_CONFIG")"
 if [ ! -f "$CURSOR_CLI_CONFIG" ]; then
@@ -62,20 +62,20 @@ if [ ! -f "$CURSOR_CLI_CONFIG" ]; then
 {
   "version": 1,
   "model": {
-    "modelId": "claude-4.6-opus-high",
-    "displayModelId": "claude-4.6-opus-high",
-    "displayName": "Opus 4.6 1M",
-    "displayNameShort": "Opus 4.6 1M",
+    "modelId": "claude-4.7-opus-high",
+    "displayModelId": "claude-4.7-opus-high",
+    "displayName": "Opus 4.7 1M",
+    "displayNameShort": "Opus 4.7 1M",
     "aliases": [],
     "maxMode": true
   },
   "hasChangedDefaultModel": true,
   "selectedModel": {
-    "modelId": "claude-4.6-opus-high",
+    "modelId": "claude-4.7-opus-high",
     "parameters": []
   },
   "modelParameters": {
-    "claude-4.6-opus-high": []
+    "claude-4.7-opus-high": []
   },
   "approvalMode": "auto-approve"
 }
@@ -84,20 +84,20 @@ elif command -v jq >/dev/null 2>&1; then
   tmp="$(mktemp)"
   jq '
     .model = {
-      "modelId": "claude-4.6-opus-high",
-      "displayModelId": "claude-4.6-opus-high",
-      "displayName": "Opus 4.6 1M",
-      "displayNameShort": "Opus 4.6 1M",
+      "modelId": "claude-4.7-opus-high",
+      "displayModelId": "claude-4.7-opus-high",
+      "displayName": "Opus 4.7 1M",
+      "displayNameShort": "Opus 4.7 1M",
       "aliases": [],
       "maxMode": true
     } |
     .hasChangedDefaultModel = true |
     .selectedModel = {
-      "modelId": "claude-4.6-opus-high",
+      "modelId": "claude-4.7-opus-high",
       "parameters": []
     } |
     .modelParameters = {
-      "claude-4.6-opus-high": []
+      "claude-4.7-opus-high": []
     } |
     .approvalMode = "auto-approve"
   ' "$CURSOR_CLI_CONFIG" > "$tmp" && mv "$tmp" "$CURSOR_CLI_CONFIG"
