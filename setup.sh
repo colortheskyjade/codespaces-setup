@@ -159,16 +159,6 @@ else
   errors+=("Zellij (unsupported arch)")
 fi
 
-# --- EFS setup hook ---
-if [[ -n "${EFS_MOUNT_POINT:-}" ]]; then
-  efs_setup="$EFS_MOUNT_POINT/setup.sh"
-  if [[ -x "$efs_setup" ]]; then
-    try "EFS setup hook" "$efs_setup"
-  else
-    echo "  !! Skipping EFS setup: $efs_setup not found or not executable" >&2
-  fi
-fi
-
 # --- Summary ---
 echo ""
 if [[ ${#errors[@]} -eq 0 ]]; then
