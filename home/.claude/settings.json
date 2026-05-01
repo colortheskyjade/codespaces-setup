@@ -1,8 +1,21 @@
 {
+  "effortLevel": "high",
   "enabledPlugins": {
     "superpowers@claude-plugins-official": true
   },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "jq -r '.tool_input.command' | grep -qE 'gh (pr (comment|review)|issue comment)\\b|gh api\\b[^|;&]*/(comments|reviews|replies)' && jq -n '{hookSpecificOutput:{hookEventName:\"PreToolUse\",permissionDecision:\"ask\",permissionDecisionReason:\"Posts a comment/review on GitHub under your identity. Confirm before sending.\"}}' || true",
+            "type": "command"
+          }
+        ],
+        "matcher": "Bash"
+      }
+    ]
+  },
   "model": "opus[1m]",
-  "skipDangerousModePermissionPrompt": true,
-  "effortLevel": "high"
+  "skipDangerousModePermissionPrompt": true
 }
