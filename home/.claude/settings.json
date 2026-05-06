@@ -8,7 +8,7 @@
       {
         "hooks": [
           {
-            "command": "jq -r '.tool_input.command' | grep -qE 'gh (pr (comment|review)|issue comment)\\b|gh api\\b[^|;&]*/(comments|reviews|replies)' && jq -n '{hookSpecificOutput:{hookEventName:\"PreToolUse\",permissionDecision:\"ask\",permissionDecisionReason:\"Posts a comment/review on GitHub under your identity. Confirm before sending.\"}}' || true",
+            "command": "jq -r '.tool_input.command' | grep -qE 'gh (pr (comment|review)|issue comment)\\b|gh api\\b[^|;&]*(-X[= ](POST|PATCH|PUT|DELETE)|--method[= ](POST|PATCH|PUT|DELETE))\\b' && jq -n '{hookSpecificOutput:{hookEventName:\"PreToolUse\",permissionDecision:\"ask\",permissionDecisionReason:\"Posts a comment/review on GitHub under your identity. Confirm before sending.\"}}' || true",
             "type": "command"
           }
         ],
