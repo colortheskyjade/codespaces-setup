@@ -44,6 +44,23 @@ fi
 
 # --- Dotfiles via stow ---
 mkdir -p ~/.config
+
+# Move aside any real files that would block stow (e.g. Claude Code installer
+# writes ~/.claude/settings.json before this script runs).
+pre_stow_backup_blockers() {
+  local ts; ts="$(date +%s)"
+  while IFS= read -r -d '' src; do
+    local rel="${src#home/}"
+    local dst="$HOME/$rel"
+    if [[ -e "$dst" && ! -L "$dst" && ! -d "$dst" ]]; then
+      local bak="${dst}.pre-stow.${ts}.bak"
+      echo "  moving aside blocking file: $dst -> $bak"
+      mv "$dst" "$bak"
+    fi
+  done < <(find home -type f -print0)
+}
+pre_stow_backup_blockers
+
 try "Stow dotfiles" stow --no-folding --restow -t ~ home
 ln -sf ~/AGENTS.md ~/.claude/CLAUDE.md 2>/dev/null || true
 if command -v gitpod >/dev/null 2>&1; then
