@@ -150,7 +150,7 @@ try "mise install" bash -c "curl -fsSL https://mise.run | sh"
 if command -v mise >/dev/null 2>&1 || [[ -x "${HOME}/.local/bin/mise" ]]; then
   export PATH="${HOME}/.local/bin:${PATH}"
   try "mise node LTS" mise use --global node@lts
-  try "npm global tools" mise x -- npm install -g @typescript/native-preview tree-sitter-cli
+  try "npm global tools" mise x -- npm install -g @typescript/native-preview tree-sitter-cli vercel
 else
   echo "  !! Skipping mise tools: mise not available" >&2
   errors+=("mise tools (mise not found)")
