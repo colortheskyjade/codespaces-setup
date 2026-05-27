@@ -17,5 +17,10 @@
     ]
   },
   "model": "opus[1m]",
+  "statusLine": {
+    "type": "command",
+    "command": "/workspaces/obsidian/.claude/statusline/main.sh",
+    "padding": 0
+  },
   "skipDangerousModePermissionPrompt": true
 }
