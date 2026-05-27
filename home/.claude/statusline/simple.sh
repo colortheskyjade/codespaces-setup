@@ -1,65 +1,44 @@
 #!/bin/bash
-# shellcheck source-path=SCRIPTDIR
-# shellcheck disable=SC1091
-# Claude Code statusline — simple one-line layout
-# Shows: [model] 💻 environment 🌿 branch* 📊 context%
-# Sources lib/core.sh and lib/git.sh for width-aware rendering
+# Claude Code statusline — [model] 🌿 branch* context%
 
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-
-# Read JSON input
-# shellcheck disable=SC2034  # consumed by lib/session.sh
 input=$(cat)
 
-# Source shared libraries
-# shellcheck source=lib/core.sh
-source "$SCRIPT_DIR/lib/core.sh"
-# shellcheck source=lib/session.sh
-source "$SCRIPT_DIR/lib/session.sh"
-# shellcheck source=lib/git.sh
-source "$SCRIPT_DIR/lib/git.sh"
+MODEL=$(echo "$input" | jq -r '.model.display_name // "Unknown"' | sed -E 's/Claude //i; s/ \(with .*\)//i; s/ /-/g; s/(.)/\L\1/g')
+FULL_DIR=$(echo "$input" | jq -r '.workspace.current_dir // "."')
+CONTEXT_SIZE=$(echo "$input" | jq -r '.context_window.context_window_size // 200000')
+USED_PCT=$(echo "$input" | jq -r '.context_window.used_percentage // 0')
 
-# MARK: - Build Parts
-
-# Model — shortened: "Claude Opus 4 (with extended thinking)" → "opus-4"
-SHORT_MODEL=$(echo "$MODEL" | sed -E '
-    s/Claude //i;
-    s/ \(with extended thinking\)//i;
-    s/ \(with .*\)//i;
-    s/ /-/g;
-    s/(.)/\L\1/g;
-')
-MODEL_PART="\033[36m[${SHORT_MODEL}]\033[0m"
-
-# Environment
-ENV_PART=""
-if [ -n "$FRIENDLY_NAME" ]; then
-    ENV_PART="💻 \033[35m${FRIENDLY_NAME}\033[0m"
+# Git branch + dirty
+BRANCH=""
+DIRTY=""
+if git -C "$FULL_DIR" rev-parse --git-dir &>/dev/null; then
+    GIT_STATUS=$(git -C "$FULL_DIR" --no-optional-locks status -b --porcelain=v2 2>/dev/null)
+    BRANCH=$(echo "$GIT_STATUS" | grep '^# branch.head ' | cut -d' ' -f3)
+    if echo "$GIT_STATUS" | grep -qE '^[12?] '; then
+        DIRTY="*"
+    fi
 fi
 
-# Branch + dirty
-BRANCH_PART=""
-if [ -n "$BRANCH" ]; then
-    DISPLAY_BRANCH=$(truncate_string "$BRANCH" 25)
-    BRANCH_PART="🌿 \033[33m${DISPLAY_BRANCH}\033[0m\033[31m${DIRTY}\033[0m"
+# Context color
+USED_PCT_INT=${USED_PCT%.*}
+[ -z "$USED_PCT_INT" ] && USED_PCT_INT=0
+CTX_COLOR="\033[32m"
+if [ "$CONTEXT_SIZE" -gt 0 ] 2>/dev/null; then
+    COMPACT_PCT=$(( (CONTEXT_SIZE - 33000) * 100 / CONTEXT_SIZE ))
+    (( USED_PCT_INT >= COMPACT_PCT )) && CTX_COLOR="\033[1;31m"
+    (( USED_PCT_INT < COMPACT_PCT && USED_PCT_INT >= COMPACT_PCT - 10 )) && CTX_COLOR="\033[1;33m"
+    (( USED_PCT_INT >= 50 && USED_PCT_INT < COMPACT_PCT - 10 )) && CTX_COLOR="\033[33m"
 fi
 
-# Context percentage
-CONTEXT_PART=""
-if (( USED_PCT_INT > 0 )); then
-    CONTEXT_PART="${CTX_COLOR}${USED_PCT_INT}%\033[0m"
+# Truncate branch
+DISPLAY_BRANCH="$BRANCH"
+if (( ${#BRANCH} > 25 )); then
+    DISPLAY_BRANCH="${BRANCH:0:22}..."
 fi
 
-# MARK: - Assemble Output (single line)
-# Priority order (lowest priority dropped first on narrow terminals):
-# 1. Branch+dirty (always)  2. Context% (always)  3. Machine (dropped on narrow)  4. Model (dropped first)
+# Assemble
+PARTS="\033[36m[${MODEL}]\033[0m"
+[ -n "$BRANCH" ] && PARTS="$PARTS 🌿 \033[33m${DISPLAY_BRANCH}\033[0m\033[31m${DIRTY}\033[0m"
+(( USED_PCT_INT > 0 )) && PARTS="$PARTS ${CTX_COLOR}${USED_PCT_INT}%\033[0m"
 
-TERM_WIDTH=$(get_terminal_width)
-
-LINE=$(fit_to_width "$TERM_WIDTH" 0 \
-    "$(echo -e "$MODEL_PART")" \
-    "$(echo -e "$ENV_PART")" \
-    "$(echo -e "$BRANCH_PART")" \
-    "$(echo -e "$CONTEXT_PART")")
-
-printf '%s\n' "$LINE"
+echo -e "$PARTS"
