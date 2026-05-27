@@ -19,7 +19,7 @@
   "model": "opus[1m]",
   "statusLine": {
     "type": "command",
-    "command": "~/.claude/statusline/main.sh",
+    "command": "~/.claude/statusline/simple.sh",
     "padding": 0
   },
   "skipDangerousModePermissionPrompt": true
