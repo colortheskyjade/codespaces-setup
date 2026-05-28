@@ -9,11 +9,11 @@ MODEL=$(echo "$input" | jq -r '.model.display_name // "Unknown"' | sed -E 's/Cla
 # Effort / reasoning level
 EFFORT=$(echo "$input" | jq -r '.session.effortLevel // "high"')
 case "$EFFORT" in
-  low)   EFFORT_DISPLAY="\033[34mlo\033[0m" ;;
-  medium) EFFORT_DISPLAY="\033[33mmed\033[0m" ;;
-  high)  EFFORT_DISPLAY="\033[32mhi\033[0m" ;;
-  xhigh) EFFORT_DISPLAY="\033[1;35mxhi\033[0m" ;;
-  *)     EFFORT_DISPLAY="\033[37m${EFFORT}\033[0m" ;;
+  low)    EFFORT_DISPLAY="\033[34mlow\033[0m" ;;
+  medium) EFFORT_DISPLAY="\033[33mmedium\033[0m" ;;
+  high)   EFFORT_DISPLAY="\033[32mhigh\033[0m" ;;
+  xhigh)  EFFORT_DISPLAY="\033[1;35mxhigh\033[0m" ;;
+  *)      EFFORT_DISPLAY="\033[37m${EFFORT}\033[0m" ;;
 esac
 
 # Git branch + dirty indicator
