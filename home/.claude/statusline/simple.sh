@@ -61,12 +61,13 @@ fi
 # Cost
 COST=$(echo "$input" | jq -r '.session.cost // 0 | . * 100 | floor | . / 100 | tostring | "$" + .')
 
+D="\033[90m|\033[0m"
+
 # Assemble
-PARTS="\033[1;36m${MODEL}\033[0m"
-PARTS="$PARTS ${EFFORT_DISPLAY}"
-[ -n "$BRANCH" ] && PARTS="$PARTS \033[33m${DISPLAY_BRANCH}\033[0m\033[31m${DIRTY}\033[0m"
-PARTS="$PARTS \033[35m${TOKENS}\033[0m"
-(( USED_PCT_INT > 0 )) && PARTS="$PARTS ${CTX_COLOR}${USED_PCT_INT}%\033[0m"
-PARTS="$PARTS \033[1;32m${COST}\033[0m"
+PARTS="\033[1;36m${MODEL}\033[0m ${D} ${EFFORT_DISPLAY}"
+[ -n "$BRANCH" ] && PARTS="$PARTS ${D} \033[33m${DISPLAY_BRANCH}\033[0m\033[31m${DIRTY}\033[0m"
+PARTS="$PARTS ${D} \033[35m${TOKENS}\033[0m"
+(( USED_PCT_INT > 0 )) && PARTS="$PARTS ${D} ${CTX_COLOR}${USED_PCT_INT}%\033[0m"
+PARTS="$PARTS ${D} \033[1;32m${COST}\033[0m"
 
 echo -e "$PARTS"
