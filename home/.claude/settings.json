@@ -1,26 +1,26 @@
 {
-  "effortLevel": "high",
-  "enabledPlugins": {
-    "superpowers@claude-plugins-official": true
-  },
+  "model": "opus[1m]",
   "hooks": {
     "PreToolUse": [
       {
+        "matcher": "Bash",
         "hooks": [
           {
-            "command": "jq -r '.tool_input.command' | grep -qE 'gh (pr (comment|review)|issue comment)\\b|gh api\\b[^|;&]*(-X[= ](POST|PATCH|PUT|DELETE)|--method[= ](POST|PATCH|PUT|DELETE))\\b' && jq -n '{hookSpecificOutput:{hookEventName:\"PreToolUse\",permissionDecision:\"ask\",permissionDecisionReason:\"Posts a comment/review on GitHub under your identity. Confirm before sending.\"}}' || true",
-            "type": "command"
+            "type": "command",
+            "command": "jq -r '.tool_input.command' | grep -qE 'gh (pr (comment|review)|issue comment)\\b|gh api\\b[^|;&]*(-X[= ](POST|PATCH|PUT|DELETE)|--method[= ](POST|PATCH|PUT|DELETE))\\b' && jq -n '{hookSpecificOutput:{hookEventName:\"PreToolUse\",permissionDecision:\"ask\",permissionDecisionReason:\"Posts a comment/review on GitHub under your identity. Confirm before sending.\"}}' || true"
           }
-        ],
-        "matcher": "Bash"
+        ]
       }
     ]
   },
-  "model": "opus[1m]",
   "statusLine": {
     "type": "command",
     "command": "~/.claude/statusline/simple.sh",
     "padding": 0
   },
+  "enabledPlugins": {
+    "superpowers@claude-plugins-official": false
+  },
+  "effortLevel": "high",
   "skipDangerousModePermissionPrompt": true
 }
