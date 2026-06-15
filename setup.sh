@@ -71,6 +71,34 @@ if command -v gitpod >/dev/null 2>&1; then
   fi
 fi
 
+# --- Disable superpowers plugin in the obsidian repo ---
+# The repo's checked-in .claude/settings.json enables superpowers, and project
+# settings outrank ~/.claude/settings.json. A gitignored settings.local.json
+# (local > project) is the only way to keep it disabled there.
+seed_obsidian_settings_local() {
+  local repo="/workspaces/obsidian"
+  [[ -d "$repo" ]] || { echo "  obsidian repo not present, skipping"; return 0; }
+
+  local f="$repo/.claude/settings.local.json"
+  mkdir -p "$(dirname "$f")"
+
+  if [[ -f "$f" ]] && command -v jq >/dev/null 2>&1; then
+    local tmp; tmp="$(mktemp)"
+    jq '.enabledPlugins["superpowers@claude-plugins-official"] = false' "$f" > "$tmp" && mv "$tmp" "$f"
+  elif [[ ! -f "$f" ]]; then
+    cat > "$f" <<'OBSIDIAN_LOCAL_EOF'
+{
+  "enabledPlugins": {
+    "superpowers@claude-plugins-official": false
+  }
+}
+OBSIDIAN_LOCAL_EOF
+  else
+    echo "  !! $f exists but jq unavailable; leaving it untouched" >&2
+  fi
+}
+try "Obsidian settings.local.json" seed_obsidian_settings_local
+
 # --- Seed Cursor CLI default model (Opus 4.7 1M) ---
 CURSOR_CLI_CONFIG="$HOME/.cursor/cli-config.json"
 mkdir -p "$(dirname "$CURSOR_CLI_CONFIG")"
